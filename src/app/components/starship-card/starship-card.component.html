@@ -1,0 +1,25 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{starship.model}}</mat-card-title>
+        <mat-card-subtitle>{{starship.description}}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+        <p>Details:</p>
+        <section class="details">
+            <span id="starshipClass"><i>Starship Class: </i> {{starship.starshipClass}}</span>
+            <span id="starshipCrew"><i><b>Crew:</b> </i> <b>{{starship.crew ? starship.crew : '-'}}</b></span>
+            <span id="starshipManufacturer"><i>Manufacturer: </i>{{starship.manufacturer}}</span>
+            <span id="starshipCost"><i>Cost in Credits: </i>{{starship.costInCredits}}</span>
+            <span id="starshipLength"><i>Length: </i>{{starship.length}}</span>
+            <span id="starshipPassengers"><i>Passengers: </i>{{starship.passengers}}</span>
+            <span id="starshipMax"><i>Max Atmosphering Speed: </i>{{starship.maxAtmospheringSpeed}}</span>
+            <span id="starshipHyperdrive"><i>Hyperdrive Rating: </i>{{starship.hyperdriveRating}}</span>
+            <span id="starshipMglt"><i>Mglt: </i>{{starship.mglt}}</span>
+            <span id="starshipCargo"><i>Cargo Capacity: </i>{{starship.cargoCapacity}}</span>
+            <span id="starshipCreated"><i>Created: </i>{{starship.created | date:"YYY-MM-dd 'at' hh:mm a" }}</span>
+            <span id="starshipEdited"><i>Edited: </i>{{starship.edited | date:"YYY-MM-dd 'at' hh:mm a"}}</span>
+        </section>  
+    </mat-card-content>
+  </mat-card>

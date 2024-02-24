@@ -1,0 +1,21 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{person.name}}</mat-card-title>
+        <mat-card-subtitle>{{person.description}}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+        <p>Details:</p>
+        <section class="details">
+            <span id="personHeight"><i>Height: </i> {{person.height}}</span>
+            <span id="personMass"><i><b>Mass:</b> </i> <b>{{person.mass ? person.mass : '-'}}</b></span>
+            <span id="personHair"><i>Hair Color: </i>{{person.hairColor}}</span>
+            <span id="personSkin"><i>Skin Color: </i>{{person.skinColor}}</span>
+            <span id="personBirth"><i>Birth Year: </i>{{person.birthYear}}</span>
+            <span id="personGender"><i>Gender: </i>{{person.gender}}</span>
+            <span id="personCreated"><i>Created: </i>{{person.created | date:"YYY-MM-dd 'at' hh:mm a" }}</span>
+            <span id="personEdited"><i>Edited: </i>{{person.edited | date:"YYY-MM-dd 'at' hh:mm a"}}</span>
+        </section>  
+    </mat-card-content>
+  </mat-card>
