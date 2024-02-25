@@ -8,14 +8,14 @@
     <mat-card-content>
         <p>Details:</p>
         <section class="details">
-            <span id="personHeight"><i>Height: </i> {{person.height}}</span>
-            <span id="personMass"><i><b>Mass:</b> </i> <b>{{person.mass ? person.mass : '-'}}</b></span>
-            <span id="personHair"><i>Hair Color: </i>{{person.hairColor}}</span>
-            <span id="personSkin"><i>Skin Color: </i>{{person.skinColor}}</span>
-            <span id="personBirth"><i>Birth Year: </i>{{person.birthYear}}</span>
-            <span id="personGender"><i>Gender: </i>{{person.gender}}</span>
-            <span id="personCreated"><i>Created: </i>{{person.created | date:"YYY-MM-dd 'at' hh:mm a" }}</span>
-            <span id="personEdited"><i>Edited: </i>{{person.edited | date:"YYY-MM-dd 'at' hh:mm a"}}</span>
+            <span [id]="'personHeight' + id"><i>Height: </i> {{person.height}}</span>
+            <span [id]="'personMass' + id"><i><b>Mass:</b> </i> <b>{{person.mass ? person.mass : '-'}}</b></span>
+            <span [id]="'personHair'+ id"><i>Hair Color: </i>{{person.hairColor}}</span>
+            <span [id]="'personSkin'+ id"><i>Skin Color: </i>{{person.skinColor}}</span>
+            <span [id]="'personBirth'+ id"><i>Birth Year: </i>{{person.birthYear}}</span>
+            <span [id]="'personGender'+ id"><i>Gender: </i>{{person.gender}}</span>
+            <span [id]="'personCreated'+ id"><i>Created: </i>{{person.created | date:"YYY-MM-dd 'at' hh:mm a" }}</span>
+            <span [id]="'personEdited'+ id"><i>Edited: </i>{{person.edited | date:"YYY-MM-dd 'at' hh:mm a"}}</span>
         </section>  
     </mat-card-content>
   </mat-card>

@@ -14,6 +14,7 @@ describe('PersonCardComponent', () => {
 
     fixture = TestBed.createComponent(PersonCardComponent);
     component = fixture.componentInstance;
+    component.id="Test";
     component.person = { 
       height: "180",
       mass: null,
@@ -35,7 +36,7 @@ describe('PersonCardComponent', () => {
   });
 
   it("should show '-' becouse mass is null ", () => {
-    const massValue = fixture.debugElement.nativeElement.querySelectorAll("#personMass b")[1].innerHTML;
+    const massValue = fixture.debugElement.nativeElement.querySelectorAll("#personMassTest b")[1].innerHTML;
     expect(massValue).toEqual("-");
   });
 
@@ -54,7 +55,7 @@ describe('PersonCardComponent', () => {
       eyeColor: "blue-gray"
     }
     fixture.detectChanges();
-    const massValue = fixture.debugElement.nativeElement.querySelectorAll("#personMass b")[1].innerHTML;
+    const massValue = fixture.debugElement.nativeElement.querySelectorAll("#personMassTest b")[1].innerHTML;
     expect(massValue).toEqual("100");
   });
 });

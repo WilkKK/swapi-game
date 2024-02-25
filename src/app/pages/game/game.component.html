@@ -1,42 +1,50 @@
 <header>
     <h1>Welcom to Play!</h1>
     <section class="center">
-        <button *ngIf="!gameIsOn()" mat-raised-button color="primary" (click)="startGame()" >Play Game</button>
-        <button *ngIf="gameIsOn()" mat-raised-button color="primary" (click)="playNextRound()" >Next Round</button>
+        <button id="playGame" *ngIf="!gameIsOn()" mat-raised-button color="primary" (click)="startGame()">Play
+            Game</button>
+        <button id="nextRound" *ngIf="gameIsOn()" mat-raised-button color="primary" (click)="playNextRound()">Next
+            Round</button>
         <section class="center flex">
-            <mat-radio-group aria-label="Select an option"  [disabled]="gameIsOn()" [ngModel]="type" (ngModelChange)="gameTypeChange($event)">
+            <mat-radio-group id="optionSelected" aria-label="Select an option" [disabled]="gameIsOn()" [ngModel]="type"
+                (ngModelChange)="gameTypeChange($event)">
                 <mat-radio-button [value]="GameType.PERSON">Person</mat-radio-button>
                 <mat-radio-button [value]="GameType.STARSHIPS">Starship</mat-radio-button>
-              </mat-radio-group>
-              <mat-radio-group aria-label="Single of Multi Players"  [ngModel]="playerType" [disabled]="gameIsOn()" (ngModelChange)="gamePlayerChange($event)">
+            </mat-radio-group>
+            <mat-radio-group id="optionPlayerType" aria-label="Single of Multi Players" [ngModel]="playerType"
+                [disabled]="gameIsOn()" (ngModelChange)="gamePlayerChange($event)">
                 <mat-radio-button [value]="GamePlayer.SINGLE">Single</mat-radio-button>
                 <mat-radio-button [value]="GamePlayer.DOUBLE">Double</mat-radio-button>
-                <p *ngIf="playerType === GamePlayer.DOUBLE"><i>Round:</i> {{game?.courentRound}}/{{game?.maxRound}}</p>
-              </mat-radio-group>
+            </mat-radio-group>
+            <p id="roundInformation" *ngIf="playerType === GamePlayer.DOUBLE"><i>Round:</i>
+                {{game?.courentRound}}/{{game?.maxRound}}</p>
         </section>
     </section>
 </header>
 
 <ng-container [ngSwitch]="type">
-    <section class="person-items">
+    <section class="card-items">
         <ng-container *ngFor="let player of getPlayers">
             <span>
                 <H2>{{player.name}}</H2>
-                <p *ngIf="playerType === GamePlayer.DOUBLE"><i>points:</i> {{player.currentPoint}}</p>
-                <app-person-card *ngIf="player.details && game?.type === GameType.PERSON" [person]="getPersonPlayers(player)"></app-person-card>
-                <app-starship-card *ngIf="player.details && game?.type === GameType.STARSHIPS" [starship]="getStarshipPlayers(player)"></app-starship-card>
+                <p [id]="'points'+player.name" *ngIf="playerType === GamePlayer.DOUBLE"><i>points:</i> {{player.currentPoint}}</p>
+                <app-person-card *ngIf="player.details && game?.type === GameType.PERSON"
+                    [id]="player.name"
+                    [person]="getPersonPlayers(player)"></app-person-card>
+                <app-starship-card *ngIf="player.details && game?.type === GameType.STARSHIPS"
+                    [id]="player.name"
+                    [starship]="getStarshipPlayers(player)"></app-starship-card>
             </span>
-        </ng-container></section>
+        </ng-container>
+    </section>
 </ng-container>
 
-<section class="center">
-    <h2 *ngIf="gameIsInit() && !roundIsOn() && winnerExist(true)">Winner is <b>{{game?.winnerRoundName}}</b></h2>
-    <h2 *ngIf="gameIsInit() && !roundIsOn() && !winnerExist(true)">No winner is <b>draw</b></h2>
+<section class="center summary">
+    <h2 id="winnerName" *ngIf="gameIsInit() && !roundIsOn() && winnerExist(true)">Winner is <b>{{game?.winnerRoundName}}</b></h2>
+    <h2 id="winnerDraw" *ngIf="gameIsInit() && !roundIsOn() && !winnerExist(true)">No winner is <b>draw</b></h2>
     <ng-container *ngIf="playerType === GamePlayer.DOUBLE;">
-        <h2 *ngIf="gameIsInit() && !gameIsOn() && winnerExist()">WINNER OF ALL GAME IS: <b>{{game?.winnerName}}</b></h2>
-        <h2 *ngIf="gameIsInit() && !gameIsOn() && !winnerExist()">SORRY, DRAW FOR ALL GAME: <b>{{game?.winnerName}}</b></h2>
+        <h2 id="winnerNameGame" *ngIf="gameIsInit() && !gameIsOn() && winnerExist()">WINNER OF ALL GAME IS: <b>{{game?.winnerName}}</b></h2>
+        <h2 id="winnerDrawGame" *ngIf="gameIsInit() && !gameIsOn() && !winnerExist()">SORRY, DRAW FOR ALL GAME: <b>{{game?.winnerName}}</b>
+        </h2>
     </ng-container>
-
-   
 </section>
-

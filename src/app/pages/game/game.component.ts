@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SwapiService } from '../../services/swapi.service';
-import { Observable, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { GameType } from '../../models/game-type.enum';
 import { PersonCardComponent } from '../../components/person-card/person-card.component';
 import { StarshipCardComponent } from '../../components/starship-card/starship-card.component';
@@ -31,21 +31,10 @@ export class GameComponent {
   playerType: GamePlayer = GamePlayer.SINGLE;
   game!: Game<PersonModel> | Game<StarshipModel> | null;
 
-
-  personPlayers$: Observable<{ firstPerson: PersonModel, secoundPerson: PersonModel }> = forkJoin({
-    firstPerson: this.swapiService.getPerson(),
-    secoundPerson: this.swapiService.getPerson()
-  });
-  starshipPlayers$: Observable<{ firstStarship: StarshipModel, secoundStarship: StarshipModel }> = forkJoin({
-    firstStarship: this.swapiService.getStarships(),
-    secoundStarship: this.swapiService.getStarships()
-  })
-
-
   startGame() {
     if (this.type === GameType.PERSON) {
       const players = [new Player<PersonModel>("Player 1"), new Player<PersonModel>("Player 2")];
-      this.game = new Game<PersonModel>(this.type, this.playerType, players, "mass") as Game<PersonModel> as Game<PersonModel>;
+      this.game = new Game<PersonModel>(this.type, this.playerType, players, "mass");
     } else {
       const players = [new Player<StarshipModel>("Player 1"), new Player<StarshipModel>("Player 2")];
       this.game = new Game<StarshipModel>(this.type, this.playerType, players, "crew");
@@ -100,15 +89,20 @@ export class GameComponent {
 
   private playGame() {
     if (this.type === GameType.PERSON) {
-      this.personPlayers$.subscribe(result => this.setPlayers(result.firstPerson, result.secoundPerson))
+      forkJoin({
+        firstPerson: this.swapiService.getPerson(),
+        secoundPerson: this.swapiService.getPerson()
+      }).subscribe(result => this.setPlayers(result.firstPerson, result.secoundPerson))
     } else {
-      this.starshipPlayers$.subscribe(result => this.setPlayers(result.firstStarship, result.secoundStarship))
+      forkJoin({
+        firstStarship: this.swapiService.getStarships(),
+        secoundStarship: this.swapiService.getStarships()
+      }).subscribe(result => this.setPlayers(result.firstStarship, result.secoundStarship))
     }
   }
 
   private setPlayers(firstPlayer: PersonModel | StarshipModel, secoundPlayer: PersonModel | StarshipModel) {
     if (this.game) {
-      debugger;
       this.game.players[0].details = firstPlayer
       this.game.players[1].details = secoundPlayer
       this.game.setWinnerName();

@@ -14,6 +14,7 @@ describe('StarshipCardComponent', () => {
     
     fixture = TestBed.createComponent(StarshipCardComponent);
     component = fixture.componentInstance;
+    component.id = "Test"
     component.starship = {
       model:"A/SF-01 B-wing,starfighter",
       crew: null,
@@ -36,7 +37,7 @@ describe('StarshipCardComponent', () => {
   });
 
   it("should show '-' becouse crew is null ", () => {
-    const massValue = fixture.debugElement.nativeElement.querySelectorAll("#starshipCrew b")[1].innerHTML;
+    const massValue = fixture.debugElement.nativeElement.querySelectorAll("#starshipCrewTest b")[1].innerHTML;
     expect(massValue).toEqual("-");
   });
 
@@ -56,7 +57,7 @@ describe('StarshipCardComponent', () => {
       description:"A Starship"
     } 
     fixture.detectChanges();
-    const massValue = fixture.debugElement.nativeElement.querySelectorAll("#starshipCrew b")[1].innerHTML;
+    const massValue = fixture.debugElement.nativeElement.querySelectorAll("#starshipCrewTest b")[1].innerHTML;
     expect(massValue).toEqual("2");
   });
 });

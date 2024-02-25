@@ -12,5 +12,6 @@ import { CommonModule } from '@angular/common';
 })
 export class StarshipCardComponent {
   @Input({ required: true })starship!: StarshipModel;
+  @Input({ required: true })id!: string;
 
 }

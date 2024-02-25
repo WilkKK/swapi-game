@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class PersonCardComponent {
 
   @Input({ required: true })person!: PersonModel;
+  @Input({ required: true })id!: string;
 
 }
 
