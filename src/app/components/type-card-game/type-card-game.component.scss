@@ -1,0 +1,14 @@
+:host {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-item {
+    display: flex;
+    justify-content: space-between;
+}

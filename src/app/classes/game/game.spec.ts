@@ -1,7 +1,7 @@
 import { PersonModel } from "../../models/person.model";
 import { Game } from "./game.class";
-import { GameType } from "../../models/game-type.enum";
-import { GamePlayer } from "../../models/game-player.enum";
+import { GameType } from "../../shared/enums/game-type.enum";
+import { GamePlayer } from "../../shared/enums/game-player.enum";
 import { Player } from "../player/player.class";
 import { firstPerson, secondPerson } from "../../mocks/person";
 
@@ -12,7 +12,7 @@ describe('Game Class', () => {
     const initGame = (gamePlayer: GamePlayer =  GamePlayer.SINGLE) => {
         const players = [new Player<PersonModel>("Player 1"), new Player<PersonModel>("Player 2")];
         gamePerson = new Game<PersonModel>(GameType.PERSON, gamePlayer, players, "mass");
-        gamePerson.isStared = true;
+        gamePerson.isStarted = true;
     }
     const setPlayersDetails = (firstMass: number | null = 5, secondMass: number | null = 6) => {
         let overrideFirstPerson =  JSON.parse(JSON.stringify(firstPerson));
@@ -79,7 +79,7 @@ describe('Game Class', () => {
             setPlayersDetails(2, 4);
             gamePerson.players[0].currentPoint = 0;
             gamePerson.players[1].currentPoint = 4;
-            gamePerson.courentRound = 5
+            gamePerson.currentRound = 5
             gamePerson.setWinnerName()
             expect(gamePerson.winnerName).toEqual(secondPlayerName);
             expect(gamePerson.winnerRoundName).toEqual(secondPlayerName);
@@ -90,7 +90,7 @@ describe('Game Class', () => {
             setPlayersDetails(20, 4);
             gamePerson.players[0].currentPoint = 0;
             gamePerson.players[1].currentPoint = 4;
-            gamePerson.courentRound = 5
+            gamePerson.currentRound = 5
             gamePerson.setWinnerName()
             expect(gamePerson.winnerName).toEqual(secondPlayerName);
             expect(gamePerson.winnerRoundName).toEqual(firstPlayerName);
@@ -100,7 +100,7 @@ describe('Game Class', () => {
             setPlayersDetails(4, 4);
             gamePerson.players[0].currentPoint = 2;
             gamePerson.players[1].currentPoint = 2;
-            gamePerson.courentRound = 5
+            gamePerson.currentRound = 5
             gamePerson.setWinnerName()
             expect(gamePerson.winnerName).toEqual(null);
             expect(gamePerson.winnerRoundName).toEqual(null);
@@ -112,28 +112,28 @@ describe('Game Class', () => {
         {
             testDescription: "should set game is over after one round in GAME SINGLE",
             gamePlayer: GamePlayer.SINGLE,
-            courentRound: 1,
+            currentRound: 1,
             gameIsFinish: true,
             gameIsStart: false,
         },
         {
             testDescription: "should set game is NOT over after first round in GAME DOUBLE",
             gamePlayer: GamePlayer.DOUBLE,
-            courentRound: 1,
+            currentRound: 1,
             gameIsFinish: false,
             gameIsStart: true,
         },
         {
             testDescription: "should set game is NOT over halfway point of the game in GAME DOUBLE",
             gamePlayer: GamePlayer.DOUBLE,
-            courentRound: 3,
+            currentRound: 3,
             gameIsFinish: false,
             gameIsStart: true,
         },
         {
             testDescription: "should set game is over after one last round in GAME DOUBLE",
             gamePlayer: GamePlayer.DOUBLE,
-            courentRound: 5,
+            currentRound: 5,
             gameIsFinish: true,
             gameIsStart: false,
         },
@@ -142,10 +142,10 @@ describe('Game Class', () => {
         it(`${testCase.testDescription}`, () => {
             initGame(testCase.gamePlayer);
             setPlayersDetails();
-            gamePerson.courentRound = testCase.courentRound;
+            gamePerson.currentRound = testCase.currentRound;
             gamePerson.setWinnerName()
             expect(gamePerson.isFinish).toEqual(testCase.gameIsFinish);
-            expect(gamePerson.isStared).toEqual(testCase.gameIsStart);
+            expect(gamePerson.isStarted).toEqual(testCase.gameIsStart);
         });
     })
 

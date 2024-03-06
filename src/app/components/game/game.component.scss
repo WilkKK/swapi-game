@@ -1,0 +1,14 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.game-header-container {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.game-summary {
+    text-align: center;
+}

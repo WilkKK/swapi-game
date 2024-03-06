@@ -11,4 +11,3 @@ export interface PersonModel{
     name: string
     description: string;
 }
-

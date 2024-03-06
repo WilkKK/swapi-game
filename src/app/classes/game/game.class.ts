@@ -1,16 +1,16 @@
-import { GamePlayer } from "../../models/game-player.enum";
-import { GameType } from "../../models/game-type.enum";
+import { GamePlayer, GameType } from "@swapi/shared/enums";
 import { Player } from "../player/player.class";
 
 export class Game<T> {
-  isStared: boolean;
+  isStarted: boolean = false;
   isRoundStarted: boolean = false;
-  isFinish: boolean;
-  courentRound: number = 1;
+  isFinish: boolean = false;
+  currentRound: number = 1;
   winnerRoundName: null | string = null;
   winnerName: null | string = null;
-  players: Player<T>[];
+  players: Array<Player<T>>;
   maxRound: number;
+  gameIsOn: boolean = false;
   private _propertiesToIndicateWinner: keyof T;
   private _type: GameType;
   private _player: GamePlayer;
@@ -21,8 +21,6 @@ export class Game<T> {
     this._player = player;
     this.maxRound = maxRound
     this.players = players;
-    this.isStared = false;
-    this.isFinish = false;
     this._propertiesToIndicateWinner = propertiesToIndicateWinner;
   }
 
@@ -32,48 +30,52 @@ export class Game<T> {
   public get player(): GamePlayer {
     return this._player;
   }
+
   public setWinnerName(): void {
-    const anyPlayersNotHaveDetails = this.players.find(player => !player.details);
-    if(!!anyPlayersNotHaveDetails) return;
-    const sortedPlayers = [...this.players].sort((a, b) => {
-      if (a.details![this._propertiesToIndicateWinner] > b.details![this._propertiesToIndicateWinner]) return -1;
-      if (a.details![this._propertiesToIndicateWinner] < b.details![this._propertiesToIndicateWinner]) return 1;
-      return 0;
-    });
-    const isDraw = sortedPlayers.filter(item => sortedPlayers[0].details![this._propertiesToIndicateWinner] === item.details![this._propertiesToIndicateWinner]);
-    this.winnerRoundName = isDraw.length > 1 ? null : sortedPlayers[0].name;
+    if (this.players.some(player => !player.details)) return;
+    const sortedPlayers = this.sortPlayersByProperty();
+    const isDraw = this.checkDraw(sortedPlayers);
+    this.winnerRoundName = isDraw ? null : sortedPlayers[0].name;
     this.isRoundStarted = false;
-    this.setPoints()
+    this.setPoints();
     this.continueGame();
   }
 
+  private sortPlayersByProperty(): Player<T>[] {
+    return [...this.players].sort((a, b) => (b.details![this._propertiesToIndicateWinner] as number) - (a.details![this._propertiesToIndicateWinner] as number));
+  }
+
+  private checkDraw(sortedPlayers: Player<T>[]): boolean {
+    return sortedPlayers.filter(player => player.details![this._propertiesToIndicateWinner] === sortedPlayers[0].details![this._propertiesToIndicateWinner]).length > 1;
+  }
+
+
   private continueGame(): void {
-    if (this.player === GamePlayer.SINGLE) {
-      this.isFinish = true;
-      this.isStared = false;
-      this.winnerName = this.winnerRoundName;
-    } else {
-      if (this.courentRound >= this.maxRound) {
-        this.isFinish = true;
-        this.isStared = false;
-        const sortedPlayersByPoints = [...this.players].sort((a, b) => {
-          if (a.currentPoint > b.currentPoint) return -1;
-          if (a.currentPoint < b.currentPoint) return 1;
-          return 0;
-        });
-        const isDraw = sortedPlayersByPoints.filter(item => sortedPlayersByPoints[0].currentPoint === item.currentPoint);
-        this.winnerName = isDraw.length > 1 ? null : sortedPlayersByPoints[0].name;
-
-      }
+    if (this.currentRound >= this.maxRound || this.player === GamePlayer.SINGLE) {
+      this.endGame();
     }
   }
 
-  private setPoints() {
-    const winner = this.players.find(item => item.name === this.winnerRoundName);
-    if (winner) {
-      winner.currentPoint++;
-    } else {
-      this.players.map(player => player.currentPoint++)
-    }
+  private endGame(): void {
+    this.isFinish = true;
+    this.isStarted = false;
+    const sortedPlayersByPoints = this.sortPlayersByPoints();
+    const isDraw = this.checkDrawByPoints(sortedPlayersByPoints);
+
+    this.winnerName = isDraw ? null : sortedPlayersByPoints[0].name;
   }
+
+  private sortPlayersByPoints(): Player<T>[] {
+    return [...this.players].sort((a, b) => b.currentPoint - a.currentPoint);
+  }
+
+  private checkDrawByPoints(sortedPlayers: Player<T>[]): boolean {
+    return sortedPlayers.filter(player => player.currentPoint === sortedPlayers[0].currentPoint).length > 1;
+  }
+
+  private setPoints(): void {
+    const winner = this.players.find(player => player.name === this.winnerRoundName);
+    winner ? winner.currentPoint++ : this.players.forEach(player => player.currentPoint++);
+  }
+
 }

@@ -22,7 +22,17 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "@swapi/core/interceptor":["app/core/interceptor"],
+      "@swapi/core/services":["app/core/services"],
+      "@swapi/shared/components":["app/shared/components"],
+      "@swapi/shared/enums":["app/shared/enums"],
+      "@swapi/shared/models":["app/shared/models"],
+      "@swapi/shared/pipes":["app/shared/pipes"],
+      
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -3,11 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GameComponent } from './game.component';
 import { HttpClientModule } from '@angular/common/http';
 import { of } from 'rxjs';
-import { SwapiService } from '../../services/swapi.service';
+import { SwapiService } from '../../core/services/http/swapi.service';
 import { firstPerson } from '../../mocks/person';
-import { GameType } from '../../models/game-type.enum';
+import { GameType } from '../../shared/enums/game-type.enum';
 import { firstStarship } from '../../mocks/starship';
-import { GamePlayer } from '../../models/game-player.enum';
+import { GamePlayer } from '../../shared/enums/game-player.enum';
 
 describe('GameComponent', () => {
   let component: GameComponent;
@@ -62,10 +62,10 @@ describe('GameComponent', () => {
     component.gamePlayerChange(GamePlayer.SINGLE);
     component.startGame()
     fixture.detectChanges();
-    const optionSelected: HTMLInputElement[] = fixture.elementRef.nativeElement.querySelectorAll("#optionSelected input[type='radio']");
-    const optionPlayerType: HTMLInputElement[] = fixture.elementRef.nativeElement.querySelectorAll("#optionPlayerType input[type='radio']");
-    optionSelected.forEach(item => expect(item.disabled).toBeFalse());
-    optionPlayerType.forEach(item => expect(item.disabled).toBeFalse());
+    const gameTypeSelection: HTMLInputElement[] = fixture.elementRef.nativeElement.querySelectorAll("#gameTypeSelection input[type='radio']");
+    const playerTypeSelection: HTMLInputElement[] = fixture.elementRef.nativeElement.querySelectorAll("#playerTypeSelection input[type='radio']");
+    gameTypeSelection.forEach(item => expect(item.disabled).toBeFalse());
+    playerTypeSelection.forEach(item => expect(item.disabled).toBeFalse());
   });
 
   it('should disable options to change type and players during game is on', () => {
@@ -73,10 +73,10 @@ describe('GameComponent', () => {
     component.gamePlayerChange(GamePlayer.DOUBLE);
     component.startGame()
     fixture.detectChanges();
-    const optionSelected: HTMLInputElement[] = fixture.elementRef.nativeElement.querySelectorAll("#optionSelected input[type='radio']");
-    const optionPlayerType: HTMLInputElement[] = fixture.elementRef.nativeElement.querySelectorAll("#optionPlayerType input[type='radio']");
-    optionSelected.forEach(item => expect(item.disabled).toBeTrue());
-    optionPlayerType.forEach(item => expect(item.disabled).toBeTrue());
+    const gameTypeSelection: HTMLInputElement[] = fixture.elementRef.nativeElement.querySelectorAll("#gameTypeSelection input[type='radio']");
+    const playerTypeSelection: HTMLInputElement[] = fixture.elementRef.nativeElement.querySelectorAll("#playerTypeSelection input[type='radio']");
+    gameTypeSelection.forEach(item => expect(item.disabled).toBeTrue());
+    playerTypeSelection.forEach(item => expect(item.disabled).toBeTrue());
   });
 
   it('should not possible to start game button when game is on', () => {

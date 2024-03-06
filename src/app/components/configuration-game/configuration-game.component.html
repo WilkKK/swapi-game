@@ -1,0 +1,12 @@
+<section class="configuration-game-content">
+    <mat-radio-group id="gameTypeSelection" [disabled]="isOptionDisable" aria-label="Select an option" [ngModel]="type"
+        (ngModelChange)="typeChanged($event)">
+        <mat-radio-button [value]="GameType.PERSON">Person</mat-radio-button>
+        <mat-radio-button [value]="GameType.STARSHIPS">Starship</mat-radio-button>
+    </mat-radio-group>
+    <mat-radio-group id="playerTypeSelection" [disabled]="isOptionDisable" aria-label="Single or Multi Players"
+        [ngModel]="playerType" (ngModelChange)="playerTypeChanged($event)">
+        <mat-radio-button [value]="GamePlayer.SINGLE">Single</mat-radio-button>
+        <mat-radio-button [value]="GamePlayer.DOUBLE">Double</mat-radio-button>
+    </mat-radio-group>
+</section>

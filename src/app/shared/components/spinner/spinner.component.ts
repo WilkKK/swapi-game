@@ -1,7 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { LoaderService } from '../../services/loader.service';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoaderService } from '@swapi/core/services';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-spinner',

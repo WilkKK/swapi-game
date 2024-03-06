@@ -1,0 +1,28 @@
+<ng-container *ngFor="let details of cardsDetails ">
+    <span class="card-items">
+        <H2>{{details.player.name}}</H2>
+        <p [id]="'points'+details.player.name" *ngIf="isMultiPlayer"><i>points:</i>
+            {{details.player.currentPoint}}</p>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title-group>
+                    <mat-card-title>{{ details.header }}</mat-card-title>
+                    <mat-card-subtitle>{{ details.subHeader }}</mat-card-subtitle>
+                </mat-card-title-group>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Details:</p>
+                <section class="details" *ngFor="let item of details.configuration">
+                    <ng-container *ngIf="item.isBold; else notBoldItem">
+                        <span class="card-item" [id]="details.player.name + item.key"><i>{{item.key | camelCaseToPrettyPipe}}: </i>
+                            {{item.value ? item.value : '-'}}</span>
+                    </ng-container>
+                    <ng-template #notBoldItem>
+                        <span class="card-item" [id]="details.player.name + item.key"><i><b>{{item.key | camelCaseToPrettyPipe}}: </b> </i>
+                            <b>{{item.value ? item.value : '-'}}</b></span>
+                    </ng-template>
+                </section>
+            </mat-card-content>
+        </mat-card>
+    </span>
+</ng-container>
