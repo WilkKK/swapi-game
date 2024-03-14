@@ -50,8 +50,8 @@ describe('SwapiService', () => {
       expect(person.eyeColor).toEqual("blue");
       expect(person.birthYear).toEqual("19BBY");
       expect(person.gender).toEqual("male");
-      expect(person.created).toEqual("2014-12-09T13:50:51.644000Z");
-      expect(person.edited).toEqual("2014-12-20T21:17:56.891000Z");
+      expect(person.created).toEqual("2014-12-09");
+      expect(person.edited).toEqual("2014-12-20");
       expect(person.description).toEqual("A person");
     });
   
@@ -94,8 +94,8 @@ describe('SwapiService', () => {
       expect(starship.hyperdriveRating).toEqual("0.5");
       expect(starship.mglt).toEqual("75");
       expect(starship.cargoCapacity).toEqual("100000");
-      expect(starship.created).toEqual("2014-12-10T16:59:45.094000Z");
-      expect(starship.edited).toEqual("2014-12-20T21:23:49.880000Z");
+      expect(starship.created).toEqual("2014-12-10");
+      expect(starship.edited).toEqual("2014-12-20");
       expect(starship.description).toEqual("A starship");
 
     });

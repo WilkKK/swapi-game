@@ -1,8 +1,8 @@
 <header class="game-header-container">
     <h1>Welcome to Play!</h1>
     <div class="actions-container">
-        <button *ngIf="!gameIsOn" mat-raised-button color="primary" (click)="startGame()">Play Game</button>
-        <button *ngIf="gameIsOn" mat-raised-button color="primary" (click)="playNextRound()">Next Round</button>
+        <button id="playGame" *ngIf="!gameIsOn" mat-raised-button color="primary" (click)="startGame()">Play Game</button>
+        <button id="nextRound" *ngIf="gameIsOn" mat-raised-button color="primary" (click)="playNextRound()">Next Round</button>
         <div class="configuration-container">
             <app-configuration-game [isOptionDisable]="gameIsOn" (gameTypeChange)="gameTypeChange($event)"
                 (gamePlayerChange)="gamePlayerChange($event)">
@@ -21,16 +21,16 @@
 <footer class="game-summary">
     <h2 *ngIf="!roundIsOn">
         <ng-container *ngIf="isWinnerRound; else remisRound">
-            Winner is <strong>{{game?.winnerRoundName}}</strong>
+            Winner is <strong id="roundWinnerName">{{game?.winnerRoundName}}</strong>
         </ng-container>
-        <ng-template #remisRound>No winner. <strong>Remis</strong></ng-template>
+        <ng-template #remisRound>No winner. <strong id="roundWinnerRemis">Remis</strong></ng-template>
     </h2>
     <ng-container *ngIf="playerType === GamePlayer.DOUBLE && game && game.isFinish">
         <h2>
             <ng-container *ngIf="isWinnerGame; else remisGame">
-                WINNER OF ALL GAME IS: <strong>{{game.winnerName}}</strong>
+                WINNER OF ALL GAME IS: <strong id="gameWinnerName">{{game.winnerName}}</strong>
             </ng-container>
-            <ng-template #remisGame>Sorry, draw for all game: <strong>{{game.winnerName}}</strong></ng-template>
+            <ng-template #remisGame>Sorry, draw for all game: <strong id="gameWinnerRemis">{{game.winnerName}}</strong></ng-template>
         </h2>
     </ng-container>
 </footer>

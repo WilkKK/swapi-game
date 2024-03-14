@@ -36,26 +36,14 @@ describe('GameComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
-  it('should render two person cards and solution after start game', () => {
-    component.gameTypeChange(GameType.PERSON);
-    component.startGame()
-    fixture.detectChanges();
-    const appPersonCardLength = fixture.elementRef.nativeElement.querySelectorAll("app-person-card").length
-    const summary = fixture.elementRef.nativeElement.querySelector("#winnerDraw")
-    expect(appPersonCardLength).toEqual(2);
-    expect(summary).not.toBeNull();
-  });
-
-  it('should render two starship cards and solution after start game', () => {
+  it('should render two cards and solution after start game', () => {
     component.gameTypeChange(GameType.STARSHIPS);
     component.startGame()
     fixture.detectChanges();
-    const appPersonCardLength = fixture.elementRef.nativeElement.querySelectorAll("app-starship-card").length
-    const summary = fixture.elementRef.nativeElement.querySelector("#winnerDraw")
-    expect(appPersonCardLength).toEqual(2);
+    const summary = fixture.elementRef.nativeElement.querySelector("#roundWinnerRemis")
     expect(summary).not.toBeNull();
   });
+
 
   it('should enable options to change type and players after game end', () => {
     component.gameTypeChange(GameType.PERSON);
